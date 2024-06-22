@@ -17,7 +17,7 @@ import platform
 
 
 # Variables
-useNF = True # Change this variable if you are using a NerdFonts-pathced font.
+useNF = False # Change this variable if you are using a NerdFonts-pathced font.
 username = getpass.getuser()
 macname = socket.gethostname()
 
@@ -67,7 +67,7 @@ def main(exit=False):
         cmd = input(PromptBuilder())
 
         if cmd == "help":
-            print("NEWTERM - Python-made Shell\nVersion PREVIEW")
+            print("NEWTERM - Python-made Shell\nVersion 1.0")
         elif cmd == "exit":
             print("Exiting...")
             exit = True
