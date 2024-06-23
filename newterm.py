@@ -1,10 +1,16 @@
 class NerdFontsIcons:
     class OS:
+        openbsd = ""
         freebsd = ""
+        slackware = "" # Nobody uses slackware but why not 🗣🗣🗣
         linuxMint = ""
         archLinux = "󰣇"
+        ubuntu = ""
+        debian = ""
+        mageia = ""
         tux = ""
         windows11 = ""
+        windows10 = ""
     class Misc:
         questionMark = ""
         semiCircleLeft = "󱎕"
@@ -17,6 +23,7 @@ import platform
 
 
 # Variables
+version = 1.1 # Do NOT change!
 useNF = False # Change this variable if you are using a NerdFonts-pathced font.
 username = getpass.getuser()
 macname = socket.gethostname()
@@ -41,8 +48,7 @@ except ImportError:
     print(Fore.YELLOW + "Module [distro] is not found")
 
 
-def OSIcon():
-    # Detect OS
+def OSIcon(): # Detect OS and return icon
     if platform.system() == "Linux":
         if distro.id() == "linuxmint":
             return NerdFontsIcons.OS.linuxMint
@@ -50,13 +56,23 @@ def OSIcon():
             return NerdFontsIcons.OS.archLinux
         elif distro.id() == "freebsd":
             return NerdFontsIcons.OS.freebsd
+        elif distro.id() == "ubuntu":
+            return NerdFontsIcons.OS.ubuntu
+        elif distro.id() == "debian":
+            return NerdFontsIcons.OS.debian
+        elif distro.id() == "mageia":
+            return NerdFontsIcons.OS.mageia
+        elif distro.id() == "openbsd":
+            return NerdFontsIcons.OS.openbsd
     elif platform.system() == "Windows":
-        return NerdFontsIcons.OS.windows11
-
+        if platform.release() == "11":
+            return NerdFontsIcons.OS.windows11
+        elif platform.release() == "10":
+            return NerdFontsIcons.OS.windows10
 
 def PromptBuilder(): # Build a cool NerdFonts prompt if NF is enabled.
     if useNF == True:
-        prompt = f"{Fore.WHITE + NerdFontsIcons.Misc.semiCircleLeft + Back.WHITE + Fore.BLACK + OSIcon() } { distro.name() + Fore.WHITE + Back.BLACK + NerdFontsIcons.Misc.semiCircleRight + Fore.CYAN + username + Fore.BLUE}@{Fore.GREEN + macname + Fore.WHITE + Back.BLACK + Style.RESET_ALL + Fore.BLACK + NerdFontsIcons.Misc.semiCircleRight + Style.RESET_ALL}"
+        prompt = f"{Fore.WHITE + NerdFontsIcons.Misc.semiCircleLeft + Back.WHITE + Fore.BLACK + OSIcon() } { Fore.WHITE + Back.BLACK + NerdFontsIcons.Misc.semiCircleRight + Fore.CYAN + username + Fore.BLUE}@{Fore.GREEN + macname + Fore.WHITE + Back.BLACK + Style.RESET_ALL + Fore.BLACK + NerdFontsIcons.Misc.semiCircleRight + Style.RESET_ALL}"
         return prompt
     elif useNF == False:
         return f"{Fore.RED + username + Fore.CYAN}@{Fore.GREEN + macname + Style.RESET_ALL} ~> "
@@ -67,7 +83,7 @@ def main(exit=False):
         cmd = input(PromptBuilder())
 
         if cmd == "help":
-            print("NEWTERM - Python-made Shell\nVersion 1.0")
+            print(f"NEWTERM - Python-made Shell\nVersion {str(version)}")
         elif cmd == "exit":
             print("Exiting...")
             exit = True
